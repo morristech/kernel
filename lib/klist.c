@@ -192,7 +192,7 @@ static void klist_release(struct kref *kref)
 	list_for_each_entry_safe(waiter, tmp, &klist_remove_waiters, list) {
 		if (waiter->node != n)
 			continue;
-
+			
 		list_del(&waiter->list);
 		waiter->woken = 1;
 		mb();
