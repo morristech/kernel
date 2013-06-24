@@ -15,6 +15,7 @@
  */
 
 #include <linux/kernel.h>
+#include <linux/module.h>
 #include <linux/file.h>
 #include <linux/fs.h>
 #include <linux/miscdevice.h>
@@ -42,6 +43,8 @@ struct sync_pt *sw_sync_pt_create(struct sw_sync_timeline *obj, u32 value)
 
 	return (struct sync_pt *)pt;
 }
+
+EXPORT_SYMBOL(sw_sync_pt_create);
 
 static struct sync_pt *sw_sync_pt_dup(struct sync_pt *sync_pt)
 {
@@ -120,6 +123,8 @@ struct sw_sync_timeline *sw_sync_timeline_create(const char *name)
 	return obj;
 }
 
+EXPORT_SYMBOL(sw_sync_timeline_create);
+
 void sw_sync_timeline_inc(struct sw_sync_timeline *obj, u32 inc)
 {
 	obj->value += inc;
@@ -127,6 +132,7 @@ void sw_sync_timeline_inc(struct sw_sync_timeline *obj, u32 inc)
 	sync_timeline_signal(&obj->obj);
 }
 
+EXPORT_SYMBOL(sw_sync_timeline_inc);
 
 #ifdef CONFIG_SW_SYNC_USER
 /* *WARNING*
@@ -166,8 +172,13 @@ long sw_sync_ioctl_create_fence(struct sw_sync_timeline *obj, unsigned long arg)
 	struct sync_fence *fence;
 	struct sw_sync_create_fence_data data;
 
-	if (copy_from_user(&data, (void __user *)arg, sizeof(data)))
-		return -EFAULT;
+	 if (fd < 0)
+    return fd;
+
+  if (copy_from_user(&data, (void __user *)arg, sizeof(data))) {
+    err = -EFAULT;
+    goto err;
+  }
 
 	pt = sw_sync_pt_create(obj, data.value);
 	if (pt == NULL) {
