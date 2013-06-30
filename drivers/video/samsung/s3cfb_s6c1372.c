@@ -74,7 +74,7 @@ static ssize_t lcdtype_show(struct device *dev,
 		sprintf(temp, "SMD_S6F1202A02\n");
 #else
 	/*For p4*/
-		sprintf(temp, "SMD_S6C1372\n");
+		sprintf(temp, "SEC_LTL101AL01-002/003\n");
 #endif
 	strcat(buf, temp);
 	return strlen(buf);
@@ -211,4 +211,3 @@ module_exit(s6c1372_exit);
 MODULE_AUTHOR("SAMSUNG");
 MODULE_DESCRIPTION("S6C1372 LCD driver");
 MODULE_LICENSE("GPL");
-

@@ -312,6 +312,11 @@ ifeq ($(USING_MALI_DVFS_ENABLED),1)
 mali-y += $(MALI_PLATFORM_DIR)/mali_platform_dvfs.o
 endif #($(USING_MALI_DVFS_ENABLED),1)
 
+ifeq ($(CONFIG_GPU_CLOCK_CONTROL),y)
+mali-y += common/gpu_clock_control.o
+mali-y += common/gpu_voltage_control.o
+endif
+
 EXTRA_CFLAGS += -DUSING_MALI400
 
 # Mali Level2 cache in use

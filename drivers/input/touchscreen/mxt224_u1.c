@@ -1211,6 +1211,9 @@ static int __devinit mxt224_init_touch_driver(struct mxt224_data *data)
 	kfree(object_table);
 	return ret;
 }
+extern void gpu_boost_on_touch(void);
+
+void (*mxt224_touch_cb)(void) = NULL;
 
 static void report_input_data(struct mxt224_data *data)
 {
@@ -1338,11 +1341,10 @@ static void report_input_data(struct mxt224_data *data)
 				level);
 			copy_data->lock_status = 1;
 		}
+                        if(mxt224_touch_cb!=NULL) (*mxt224_touch_cb)();
+           
+              
 	}
-
-    /* tell cypress keypad we had finger activity */
-    touchscreen_state_report(touch_is_pressed);
-
 }
 
 void palm_recovery(void)

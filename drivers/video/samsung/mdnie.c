@@ -456,7 +456,7 @@ static ssize_t mode_store(struct device *dev,
 	dev_info(dev, "%s :: value=%d\n", __func__, value);
 
 	if (value >= MODE_MAX) {
-		value = STANDARD;
+		value = DYNAMIC;
 		return -EINVAL;
 	}
 

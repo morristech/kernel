@@ -321,6 +321,7 @@ struct sec_bat_info {
 	unsigned int batt_temp_radc;
 #endif
 	unsigned int batt_current_adc;
+    int batt_chg_current;
 #if defined(CONFIG_TARGET_LOCALE_NAATT)
 	int batt_vf_adc;
 	int batt_event_status;
@@ -2122,10 +2123,19 @@ static bool sec_bat_check_ing_level_trigger(struct sec_bat_info *info)
 	}
 }
 
+unsigned int batt_status;
+unsigned int charging_status;
+
 static void sec_bat_monitor_work(struct work_struct *work)
 {
 	struct sec_bat_info *info = container_of(work, struct sec_bat_info,
 						 monitor_work);
+
+      /* Broadcast battery level */
+      batt_status = info->batt_soc;
+
+      /* Broadcast charging status */
+      charging_status = info->charging_status;
 
 	sec_bat_check_temper(info);
 #ifndef SEC_BATTERY_INDEPEDENT_VF_CHECK
@@ -2342,6 +2352,20 @@ static void sec_bat_polling_work(struct work_struct *work)
 				      msecs_to_jiffies(info->polling_interval));
 }
 
+
+int sec_bat_check_chgcurrent(struct sec_bat_info *info)
+{
+	unsigned long cadc = 0;
+
+	mutex_lock(&info->adclock);
+	cadc = sec_bat_get_adc_data(info, ADC_CH_CHGCURRENT);
+	mutex_unlock(&info->adclock);
+	if(cadc<0) info->batt_chg_current=cadc; else
+	//fit & normalize - gm
+	info->batt_chg_current = (cadc*50-(cadc*cadc/10000*84))/100;
+	return info->batt_chg_current;
+}
+
 #define SEC_BATTERY_ATTR(_name)			\
 {						\
 	.attr = { .name = #_name,		\
@@ -2371,6 +2395,7 @@ static struct device_attribute sec_battery_attrs[] = {
 	SEC_BATTERY_ATTR(batt_test_value),
 	SEC_BATTERY_ATTR(batt_current_now),
 	SEC_BATTERY_ATTR(batt_current_adc),
+	SEC_BATTERY_ATTR(batt_chg_current),
 	SEC_BATTERY_ATTR(siop_activated),
 	SEC_BATTERY_ATTR(system_rev),
 #ifdef CONFIG_TARGET_LOCALE_NA
@@ -2425,6 +2450,7 @@ enum {
 	BATT_TEST_VALUE,
 	BATT_CURRENT_NOW,
 	BATT_CURRENT_ADC,
+	BATT_CHG_CURRENT,
 	BATT_SIOP_ACTIVATED,
 	BATT_SYSTEM_REV,
 	BATT_FG_PSOC,
@@ -2642,6 +2668,13 @@ static ssize_t sec_bat_show_property(struct device *dev,
 	case BATT_CURRENT_ADC:
 		i += scnprintf(buf + i, PAGE_SIZE - i, "%d\n",
 			       info->batt_current_adc);
+		break;
+	case BATT_CHG_CURRENT:
+		if(info->charging_status != POWER_SUPPLY_STATUS_DISCHARGING)
+		{
+			val = sec_bat_check_chgcurrent(info);
+			i += scnprintf(buf + i, PAGE_SIZE - i, "%d\n", val);
+		} else i = -EINVAL;
 		break;
 	case BATT_SYSTEM_REV:
 		i += scnprintf(buf + i, PAGE_SIZE - i, "%d\n", system_rev);
@@ -3060,6 +3093,7 @@ static int sec_bat_read_proc(char *buf, char **start,
 		      info->batt_vfocv,
 		      info->batt_vcell,
 		      info->batt_current_adc,
+              info->batt_chg_current,
 		      info->batt_full_status,
 		      info->charging_int_full_count,
 		      info->charging_adc_full_count,

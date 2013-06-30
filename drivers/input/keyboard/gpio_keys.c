@@ -442,6 +442,7 @@ static void gpio_keys_fake_off_check(unsigned long _data)
 }
 #endif
 
+
 static void gpio_keys_report_event(struct gpio_button_data *bdata)
 {
 	struct gpio_keys_button *button = bdata->button;
