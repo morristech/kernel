@@ -51,6 +51,10 @@
 #define CLK_DIV_STAT_G3D 	0x1003C62C
 #define CLK_DESC 		"clk-divider-status"
 
+/* lock/unlock CPU freq by Mali */
+extern int cpufreq_lock_by_mali(unsigned int freq);
+extern void cpufreq_unlock_by_mali(void);
+
 static struct clk               *ext_xtal_clock = 0;
 static struct clk               *vpll_src_clock = 0;
 static struct clk               *fout_vpll_clock = 0;
@@ -60,16 +64,13 @@ static struct clk               *mpll_clock = 0;
 static struct clk               *mali_parent_clock = 0;
 static struct clk               *mali_clock = 0;
 
-int mali_gpu_clk 	=		160;
-static unsigned int GPU_MHZ	=		1000000;
-#ifdef CONFIG_S5PV310_ASV
-int mali_gpu_vol     =               1100000;        /* 1.10V for ASV */
-#else
-int mali_gpu_vol     =               1100000;        /* 1.10V */
-#endif
+static unsigned int GPU_MHZ  = 1000000;
+
+int mali_gpu_clk = 160;
+int mali_gpu_vol = 1100000;
 
 #if MALI_DVFS_ENABLED
-#define MALI_DVFS_DEFAULT_STEP 0 // 134Mhz default
+#define MALI_DVFS_DEFAULT_STEP 0
 #endif
 
 int  gpu_power_state;
@@ -100,11 +101,7 @@ extern struct platform_device exynos4_device_pd[];
 
 mali_io_address clk_register_map=0;
 
-#if MALI_GPU_BOTTOM_LOCK
-_mali_osk_lock_t *mali_dvfs_lock;
-#else
-static _mali_osk_lock_t *mali_dvfs_lock;
-#endif
+_mali_osk_lock_t *mali_dvfs_lock = 0;
 
 #ifdef CONFIG_REGULATOR
 int mali_regulator_get_usecount(void)
@@ -173,6 +170,7 @@ void mali_regulator_set_voltage(int min_uV, int max_uV)
                                MALI_PROFILING_EVENT_REASON_SINGLE_SW_GPU_VOLTS,
                                voltage, 0, 1, 0, 0);
 #endif
+
 	mali_gpu_vol = voltage;
 	MALI_DEBUG_PRINT(1, ("= regulator_get_voltage: %d \n",mali_gpu_vol));
 
@@ -465,7 +463,37 @@ static mali_bool deinit_mali_clock(void)
 
 	return MALI_TRUE;
 }
+extern int mali_touch_boost_level;
+static int is_gpu_boosted = 0;
+static DEFINE_MUTEX(boostpop_mutex);
+static struct timer_list boostpop_timer;
+static void boostpop(struct work_struct *boostpop_work)
+{
+  mutex_lock(&boostpop_mutex);
+  mali_dvfs_bottom_lock_pop();
+  is_gpu_boosted = 0;
+  mutex_unlock(&boostpop_mutex);
+}
+static DECLARE_WORK(boostpop_work, boostpop);
 
+static void handle_boostpop(unsigned long data)
+{
+  schedule_work(&boostpop_work);
+}
+
+
+void gpu_boost_on_touch(void)
+{
+  if(!mali_touch_boost_level) return;
+    mutex_lock(&boostpop_mutex);
+  if(!is_gpu_boosted)
+  {
+    mali_dvfs_bottom_lock_push(mali_touch_boost_level);
+    is_gpu_boosted = 1;
+  }
+  mutex_unlock(&boostpop_mutex);
+  mod_timer(&boostpop_timer, jiffies + msecs_to_jiffies(1000));
+}
 
 static _mali_osk_errcode_t enable_mali_clocks(void)
 {
@@ -476,6 +504,9 @@ static _mali_osk_errcode_t enable_mali_clocks(void)
 	// set clock rate
 	mali_clk_set_rate(mali_gpu_clk, GPU_MHZ);
 	
+	/* lock/unlock CPU freq by Mali */
+	if (mali_gpu_clk >= 300)
+	  err = cpufreq_lock_by_mali(800);  
 	MALI_SUCCESS;
 }
 
@@ -483,7 +514,9 @@ static _mali_osk_errcode_t disable_mali_clocks(void)
 {
 	clk_disable(mali_clock);
 	MALI_DEBUG_PRINT(3,("disable_mali_clocks mali_clock %p \n", mali_clock));
-	
+
+	/* lock/unlock CPU freq by Mali */
+	cpufreq_unlock_by_mali();
 	MALI_SUCCESS;
 }
 
@@ -561,6 +594,7 @@ _mali_osk_errcode_t mali_platform_init()
 	if(!init_mali_dvfs_status(MALI_DVFS_DEFAULT_STEP))
 		MALI_DEBUG_PRINT(1, ("mali_platform_init failed\n"));
 #endif
+		setup_timer(&boostpop_timer, handle_boostpop, 0);
 
     MALI_SUCCESS;
 }
@@ -577,6 +611,7 @@ _mali_osk_errcode_t mali_platform_deinit()
 		clk_register_map=0;
 	}
 #endif
+		del_timer(&boostpop_timer);
 
     MALI_SUCCESS;
 }
@@ -599,10 +634,6 @@ _mali_osk_errcode_t mali_platform_powerdown(u32 cores)
 		MALI_PRINT(("mali_platform_powerdown gpu_power_state == 0 and cores %x \n", cores));
 	}
 
-	bPoweroff=1;
-
-
-
     MALI_SUCCESS;
 }
 
@@ -624,9 +655,6 @@ _mali_osk_errcode_t mali_platform_powerup(u32 cores)
 	{
 		gpu_power_state = gpu_power_state | cores;
 	}
-	
-  	bPoweroff=0;
-
 
 	MALI_SUCCESS;
 }
@@ -649,8 +677,8 @@ u32 pmu_get_power_up_down_info(void)
 }
 
 #endif
+
 _mali_osk_errcode_t mali_platform_power_mode_change(mali_power_mode power_mode)
 {
     MALI_SUCCESS;
 }
-

@@ -312,10 +312,6 @@ ifeq ($(USING_MALI_DVFS_ENABLED),1)
 mali-y += $(MALI_PLATFORM_DIR)/mali_platform_dvfs.o
 endif #($(USING_MALI_DVFS_ENABLED),1)
 
-ifeq ($(CONFIG_GPU_CLOCK_CONTROL),y)
-mali-y += common/gpu_clock_control.o
-mali-y += common/gpu_voltage_control.o
-endif
 
 EXTRA_CFLAGS += -DUSING_MALI400
 
@@ -329,6 +325,10 @@ mali-y += \
 	linux/mali_slp_global_lock.o
 endif
 
+ifeq ($(CONFIG_GPU_CLOCK_CONTROL),y)
+	mali-y += common/gpu_clock_control.o
+	mali-y += common/gpu_voltage_control.o
+endif
 
 ifeq ($(PANIC_ON_WATCHDOG_TIMEOUT),1)
 	EXTRA_CFLAGS += -DUSING_KERNEL_PANIC

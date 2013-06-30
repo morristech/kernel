@@ -59,6 +59,7 @@ static int mali_os_resume(struct device *dev);
 #endif
 
 
+
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,29))
 static const struct dev_pm_ops mali_dev_pm_ops =
 {
@@ -232,8 +233,8 @@ int _mali_dev_platform_register(void)
 #endif
 
 #ifdef CONFIG_GPU_CLOCK_CONTROL
-        gpu_clock_control_start();
-        gpu_voltage_control_start();
+	gpu_clock_control_start();
+	gpu_voltage_control_start();
 #endif
 
 #ifdef CONFIG_PM_RUNTIME
