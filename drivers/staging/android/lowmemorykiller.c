@@ -60,7 +60,6 @@ static size_t lowmem_minfree[6] = {
 	2 * 1024,	/* 8MB */
 	4 * 1024,	/* 16MB */
 	16 * 1024,	/* 64MB */
-	32 * 1024,  /* 128MB */
 };
 static int lowmem_minfree_size = 4;
 #ifdef CONFIG_ZRAM_FOR_ANDROID
