@@ -141,7 +141,7 @@ static const unsigned int asv_voltage_A[CPUFREQ_LEVEL_END][8] = {
 	 * @500  :
 	 * @200  :
 	 */
-	{ 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 1400000, 1375000, 1350000, 1325000, 1300000, 1275000, 1250000, 1225000 },
 	{ 1350000, 1350000, 1300000, 1275000, 1250000, 1225000, 1200000, 1175000 },
 	{ 1300000, 1250000, 1200000, 1175000, 1150000, 1125000, 1100000, 1075000 },
 	{ 1200000, 1150000, 1100000, 1075000, 1050000, 1025000, 1000000, 975000 },
@@ -333,8 +333,8 @@ static void __init set_volt_table(void)
 	 * If ASV group is S, can not support 1.4GHz
 	 * Disabling table entry
 	 */
-	if ((asv_group == 0) || !for_1400)
-		exynos4210_freq_table[L0].frequency = CPUFREQ_ENTRY_INVALID;
+	// if ((asv_group == 0) || !for_1400)
+		// exynos4210_freq_table[L0].frequency = CPUFREQ_ENTRY_INVALID;
 
 	if (for_1000)
 		exynos4210_freq_table[L1].frequency = CPUFREQ_ENTRY_INVALID;
