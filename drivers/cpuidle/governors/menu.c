@@ -107,7 +107,7 @@
  * represented in the system load average.
  *
  */
-
+ 
 struct menu_device {
 	int		last_state_idx;
 	int             needs_update;
@@ -305,7 +305,7 @@ static int menu_select(struct cpuidle_device *dev)
 	data->predicted_us = div_round64(data->expected_us * data->correction_factor[data->bucket],
 					 RESOLUTION * DECAY);
 
-	repeat = get_typical_interval(data);
+	return get_typical_interval(data);
 
 	/*
 	 * We want to default to C1 (hlt), not to busy polling
