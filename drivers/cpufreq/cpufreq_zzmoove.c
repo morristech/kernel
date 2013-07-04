@@ -241,7 +241,7 @@ static struct dbs_tuners {
 	unsigned int freq_limit_sleep;			// ZZ: added tuneable freq_limit_sleep
 	unsigned int fast_scaling;			// ZZ: added tuneable fast_scaling
 	unsigned int fast_scaling_sleep;		// ZZ: added tuneable fast_scaling_sleep
-
+	
 } dbs_tuners_ins = {
 	.up_threshold = DEF_FREQUENCY_UP_THRESHOLD,
 	.up_threshold_hotplug1 = DEF_FREQUENCY_UP_THRESHOLD_HOTPLUG1,		// ZZ: set default value for new tuneable
@@ -834,7 +834,7 @@ static ssize_t store_freq_limit_sleep(struct kobject *a,
 
 	if (ret != 1 || input > 1600000 || (input < 200000 && input != 0))
 		return -EINVAL;
-
+	
         for (i=0; i<16; i++) {
 	    if (input == valid_freq[i]) {
 		dbs_tuners_ins.freq_limit_sleep = input;
@@ -941,7 +941,7 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 	unsigned int j;
 
 	policy = this_dbs_info->cur_policy;
-
+	
 	/*
 	 * ZZ: Frequency Limit: we try here at a verly early stage to limit freqencies above limit by setting the current target_freq to freq_limit.
 	 * This could be for example wakeup or touchboot freqencies which could be above the limit and are out of governors control(?) 
@@ -1021,7 +1021,7 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 	 * zzmoove v0.2 - changed hotplug logic to be able to tune up threshold per core and to be able to set
 	 * cores offline manually via sysfs
 	 */
-
+	
 	if (num_online_cpus() < 2) {
 			if (dbs_tuners_ins.up_threshold_hotplug1 != 0 || dbs_tuners_ins.up_threshold_hotplug2 != 0 || dbs_tuners_ins.up_threshold_hotplug3 != 0) // ZZ: don't mutex if cores are not enabled
 			mutex_unlock(&this_dbs_info->timer_mutex); // ZZ: this seems to be a very good idea, without it lockups are possible!
@@ -1050,7 +1050,7 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 			if (dbs_tuners_ins.up_threshold_hotplug3 != 0) // ZZ: don't mutex if cores are not enabled
 			mutex_lock(&this_dbs_info->timer_mutex); // ZZ: this seems to be a very good idea, without it lockups are possible!
 	}
-
+	
 	/* Check for frequency increase */
 	if (max_load > dbs_tuners_ins.up_threshold) {
 		this_dbs_info->down_skip = 0;
@@ -1066,7 +1066,7 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 	/* ZZ: Frequency Limit: try to strictly hold down freqency at freq_limit by spoofing requested freq */
 	if (dbs_tuners_ins.freq_limit != 0 && policy->cur > dbs_tuners_ins.freq_limit) {
 	this_dbs_info->requested_freq = dbs_tuners_ins.freq_limit;
-
+	
 	__cpufreq_driver_target(policy, this_dbs_info->requested_freq,
 				CPUFREQ_RELATION_H);
 	return;
@@ -1077,16 +1077,16 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 		this_dbs_info->requested_freq = mn_get_next_freq(policy->cur, ZZ_UP, max_load);
 	    else
 		this_dbs_info->requested_freq = mn_get_next_freq(policy->cur, MN_UP, max_load);
-
+	
 	    /* ZZ: check again if we are above limit because of fast scaling */
 	    if (dbs_tuners_ins.freq_limit != 0 && this_dbs_info->requested_freq > dbs_tuners_ins.freq_limit)
 		this_dbs_info->requested_freq = dbs_tuners_ins.freq_limit;
-
+	
 	__cpufreq_driver_target(policy, this_dbs_info->requested_freq,
 				CPUFREQ_RELATION_H);
 	return;
 	}
-
+	
         if (dbs_tuners_ins.fast_scaling == 1) // ZZ: use fast scaling columns
 		this_dbs_info->requested_freq = mn_get_next_freq(policy->cur, ZZ_UP, max_load);
     	    else
@@ -1104,7 +1104,7 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 	 * 
 	 * zzmoove v0.2 - changed logic to be able to tune down threshold per core via sysfs
 	 */
-
+	
 	if (num_online_cpus() > 3) {
 			mutex_unlock(&this_dbs_info->timer_mutex); // ZZ: this seems to be a very good idea, without it lockups are possible!
 			if (max_load < dbs_tuners_ins.down_threshold_hotplug3)
@@ -1154,7 +1154,7 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 		this_dbs_info->requested_freq = mn_get_next_freq(policy->cur, ZZ_DOWN, max_load);
 	    else
 		this_dbs_info->requested_freq = mn_get_next_freq(policy->cur, MN_DOWN, max_load);
-
+	
 	__cpufreq_driver_target(policy, this_dbs_info->requested_freq,
 				CPUFREQ_RELATION_L); // ZZ: changed to relation low 
 	return;
