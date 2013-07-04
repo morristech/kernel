@@ -192,7 +192,7 @@ static void poll_idle_init(struct cpuidle_device *dev)
 	snprintf(state->desc, CPUIDLE_DESC_LEN, "CPUIDLE CORE POLL IDLE");
 	state->exit_latency = 0;
 	state->target_residency = 0;
-	state->power_usage = -1;
+	state->power_usage = INT_MAX;
 	state->flags = 0;
 	state->enter = poll_idle;
 }
@@ -317,7 +317,7 @@ static int __cpuidle_register_device(struct cpuidle_device *dev)
 	if (!dev->power_specified) {
 		int i;
 		for (i = CPUIDLE_DRIVER_STATE_START; i < dev->state_count; i++)
-			dev->states[i].power_usage = -1 - i;
+			dev->states[i].power_usage = INT_MAX - i;
 	}
 
 	per_cpu(cpuidle_devices, dev->cpu) = dev;
