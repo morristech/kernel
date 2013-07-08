@@ -39,22 +39,25 @@
 #include <linux/profile.h>
 #include <linux/notifier.h>
 
-static uint32_t lowmem_debug_level = 1;
+static uint32_t lowmem_debug_level = 2;
 static short lowmem_adj[6] = {
 	0,
-	1,
-	6,
+	2,
+	4,
+	9,
 	12,
+	15,
 };
-static int lowmem_adj_size = 5;
+static int lowmem_adj_size = 6;
 static int lowmem_minfree[6] = {
 	3 * 512,	/* 6MB */
 	2 * 1024,	/* 8MB */
 	4 * 1024,	/* 16MB */
+	12 * 1024,	/* 49MB */
 	16 * 1024,	/* 64MB */
-	32 * 1024,  /* 128MB */
+	32 * 1024,	/* 128MB */
 };
-static int lowmem_minfree_size = 5;
+static int lowmem_minfree_size = 6;
 
 static unsigned long lowmem_deathpending_timeout;
 
