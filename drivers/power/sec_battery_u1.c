@@ -30,11 +30,7 @@
 #include <linux/power/sec_battery_u1.h>
 #include "charge_current.h"
 
-#if defined(CONFIG_TARGET_LOCALE_NA) || defined(CONFIG_TARGET_LOCALE_NAATT)
-#define POLLING_INTERVAL	(10 * 1000)
-#else
-#define POLLING_INTERVAL	(40 * 1000)
-#endif				/* CONFIG_TARGET_LOCALE_NA */
+#define POLLING_INTERVAL  (50 * 1000)
 
 #ifdef SEC_BATTERY_INDEPEDENT_VF_CHECK
 #if defined(CONFIG_TARGET_LOCALE_NAATT)

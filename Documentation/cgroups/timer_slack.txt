@@ -4,8 +4,8 @@ Timer Slack Controller
 Overview
 --------
 
-Every task_struct has timer_slack_ns value. This value is used to round
-up poll() and select() timeout values. This feature can be useful in
+Every task_struct has timer_slack_ns value. This value uses to round up
+poll() and select() timeout values. This feature can be useful in
 mobile environment where combined wakeups are desired.
 
 Originally, prctl() was the only way to change timer slack value of
