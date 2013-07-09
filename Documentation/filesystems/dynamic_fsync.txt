@@ -1,0 +1,13 @@
+Dynamic fsync settings
+
+This is a goodie by faux123, so all credits go to him for creating this unique feature !
+
+Many kernels just disable synchronous writes to file to speed up system. While this works neatly, it is also dangerous as processes believe that file writes are actually sync'ed to disk (or mmc media in our case) while this is not yet true !
+
+The gain is a noticably smoother user experience, but the risk of doing so is to have a corrupted filesystem if the device crashes, user pulls battery, battery fully depleats ... so that the device is turned off unexpectedly.
+
+To allow for the benefit, but to minimize the risk, faux123 created dynamic fsync, which while the screen is on, will defer file sync temporarily, but when screen gets turned off, a flush is called to synchronize all outstanding writes keeping your data safe.
+
+Now it's up to you to either use this unique feature (that has been enabled by default up until v2.2) or choose to stay stock by disabling it, thus writes being done synchronously, which is safer but also slower.
+
+http://forum.xda-developers.com/showthread.php?p=33731930#post33731930
