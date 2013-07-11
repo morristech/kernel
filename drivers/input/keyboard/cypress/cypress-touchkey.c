@@ -1369,6 +1369,16 @@ static ssize_t led_timeout_read( struct device *dev, struct device_attribute *at
 
 static ssize_t led_timeout_write_ms( struct device *dev, struct device_attribute *attr, const char *buf, size_t size )
 {
+	int i = 0;
+sscanf(buf,"%d\n", &i);
+if(i < 0) return size;
+led_timeout = i;
+if(!led_disabled)
+if(led_timeout == 0)
+{
+del_timer(&led_timer);
+}
+else mod_timer(&led_timer, jiffies + msecs_to_jiffies(led_timeout));
 	return size;
 }
 
