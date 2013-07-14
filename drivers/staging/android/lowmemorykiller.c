@@ -48,10 +48,10 @@ static short lowmem_adj[6] = {
 };
 static int lowmem_adj_size = 4;
 static int lowmem_minfree[6] = {
-	3 * 512,	/* 6MB */
-	2 * 1024,	/* 8MB */
-	4 * 1024,	/* 16MB */
+	20 * 512,	/* 80MB */
+	23 * 1024,	/* 90MB */
 	25 * 1024,	/* 100MB */
+	28 * 1024,	/* 110MB */
 };
 static int lowmem_minfree_size = 4;
 
