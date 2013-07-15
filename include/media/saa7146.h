@@ -47,6 +47,10 @@ extern unsigned int saa7146_debug;
 	saa7146_write(x, ISR, (y));
 
 struct module;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7457105444535de2ced90b6900ef0077fa5680fa
 struct saa7146_dev;
 struct saa7146_extension;
 struct saa7146_vv;

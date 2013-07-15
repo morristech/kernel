@@ -15,7 +15,10 @@ struct firmware {
 };
 
 struct module;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7457105444535de2ced90b6900ef0077fa5680fa
 struct device;
 
 struct builtin_fw {

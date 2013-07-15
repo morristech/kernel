@@ -42,6 +42,10 @@ enum {
 };
 
 struct module;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7457105444535de2ced90b6900ef0077fa5680fa
 struct lib80211_crypto_ops {
 	const char *name;
 	struct list_head list;

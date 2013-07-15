@@ -41,6 +41,10 @@ enum v4l2_int_type {
 };
 
 struct module;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7457105444535de2ced90b6900ef0077fa5680fa
 struct v4l2_int_device;
 
 struct v4l2_int_master {

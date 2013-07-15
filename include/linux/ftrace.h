@@ -19,7 +19,10 @@
 #include <asm/ftrace.h>
 
 struct module;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7457105444535de2ced90b6900ef0077fa5680fa
 struct ftrace_hash;
 
 #ifdef CONFIG_FUNCTION_TRACER
