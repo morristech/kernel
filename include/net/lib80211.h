@@ -25,7 +25,6 @@
 
 #include <linux/types.h>
 #include <linux/list.h>
-#include <linux/module.h>
 #include <asm/atomic.h>
 #include <linux/if.h>
 #include <linux/skbuff.h>
@@ -42,6 +41,7 @@ enum {
 	IEEE80211_CRYPTO_TKIP_COUNTERMEASURES = (1 << 0),
 };
 
+struct module;
 struct lib80211_crypto_ops {
 	const char *name;
 	struct list_head list;

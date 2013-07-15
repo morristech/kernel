@@ -1,7 +1,6 @@
 #ifndef _LINUX_FIRMWARE_H
 #define _LINUX_FIRMWARE_H
 
-#include <linux/module.h>
 #include <linux/types.h>
 #include <linux/compiler.h>
 #include <linux/gfp.h>
@@ -14,6 +13,8 @@ struct firmware {
 	const u8 *data;
 	struct page **pages;
 };
+
+struct module;
 
 struct device;
 
