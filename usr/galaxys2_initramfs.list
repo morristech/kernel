@@ -21,8 +21,66 @@ dir /proc 755 0 0
 dir /stage1 755 0 0
 file /stage1/busybox /home/gustavo/kernel/usr/galaxys2_initramfs_files/busybox 755 0 0
 file /stage1/init /home/gustavo/kernel/usr/galaxys2_initramfs_files/init 755 0 0
+dir /res 755 0 0
+file /res/gps /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/gps 755 0 0
+file /res/gpucat /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/gpucat 755 0 0
+file /res/gpuwatch /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/gpuwatch 755 0 0
+file /res/haveged /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/haveged 755 0 0
+file /res/power.default.so /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/power.default.so 755 0 0
+file /res/power.default.so.boostpulse /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/power.default.so.boostpulse 755 0 0
+file /res/uci.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/uci.sh 755 01000 01003
+file /res/update.url /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/update.url 755 01000 01003
+dir /res/customconfig 755 0 0
+file /res/customconfig/customconfig.xml /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/customconfig.xml 755 0 0
+file /res/customconfig/customconfig-helper /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/customconfig-helper 755 0 0
+file /res/customconfig/default.profile /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/default.profile 755 0 0
+dir /res/customconfig/actions 755 0 0
+file /res/customconfig/actions/backup /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/backup 755 0 0
+file /res/customconfig/actions/bln_effect /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/bln_effect 755 0 0
+file /res/customconfig/actions/cfs-tweaks /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/cfs-tweaks 755 0 0
+file /res/customconfig/actions/chargecurrent /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/chargecurrent 755 0 0
+file /res/customconfig/actions/cpu-voltage /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/cpu-voltage 755 0 0
+file /res/customconfig/actions/generic /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/generic 755 0 0
+file /res/customconfig/actions/generic01 /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/generic01 755 0 0
+file /res/customconfig/actions/generic_cortex /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/generic_cortex 755 0 0
+file /res/customconfig/actions/gpu-freq /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/gpu-freq 755 0 0
+file /res/customconfig/actions/gpu-staycount /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/gpu-staycount 755 0 0
+file /res/customconfig/actions/gpu-thresh /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/gpu-thresh 755 0 0
+file /res/customconfig/actions/gpu-voltage /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/gpu-voltage 755 0 0
+file /res/customconfig/actions/mediascanner /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/mediascanner 755 0 0
+file /res/customconfig/actions/navigationbar /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/navigationbar 755 0 0
+file /res/customconfig/actions/remove /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/remove 755 0 0
+file /res/customconfig/actions/remove-root /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/remove-root 755 0 0
+file /res/customconfig/actions/reset-fuelgauge /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/reset-fuelgauge 755 0 0
+file /res/customconfig/actions/restore /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/restore 755 0 0
+file /res/customconfig/actions/schedfeat /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/schedfeat 755 0 0
+file /res/customconfig/actions/scrollcache /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/scrollcache 755 0 0
+file /res/customconfig/actions/sound_volume /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/sound_volume 755 0 0
+file /res/customconfig/actions/test-bln /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/test-bln 755 0 0
+file /res/customconfig/actions/usb-mode /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/usb-mode 755 0 0
+file /res/customconfig/actions/vmtweaks /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/vmtweaks 755 0 0
+dir /res/customconfig/gps.conf 755 0 0
+file /res/customconfig/gps.conf/gps.conf.africa /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/gps.conf/gps.conf.africa 755 0 0
+file /res/customconfig/gps.conf/gps.conf.asia /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/gps.conf/gps.conf.asia 755 0 0
+file /res/customconfig/gps.conf/gps.conf.europe /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/gps.conf/gps.conf.europe 755 0 0
+file /res/customconfig/gps.conf/gps.conf.north-america /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/gps.conf/gps.conf.north-america 755 0 0
+file /res/customconfig/gps.conf/gps.conf.oceania /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/gps.conf/gps.conf.oceania 755 0 0
+file /res/customconfig/gps.conf/gps.conf.south-america /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/gps.conf/gps.conf.south-america 755 0 0
+dir /sbin 755 0 0
+dir /sbin/ext 755 0 0
+file /sbin/ext/efs-backup.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/sbin/ext/efs-backup.sh 755 0 0
+file /sbin/ext/haveged.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/sbin/ext/haveged.sh 755 0 0
+file /sbin/ext/install.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/sbin/ext/install.sh 755 0 0
+file /sbin/ext/mdnie-sharpness-tweak.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/sbin/ext/mdnie-sharpness-tweak.sh 755 0 0
+file /sbin/ext/modules.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/sbin/ext/modules.sh 755 0 0
+file /sbin/ext/post-init.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/sbin/ext/post-init.sh 755 0 0
+file /sbin/ext/properties.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/sbin/ext/properties.sh 755 0 0
+file /sbin/ext/run-init-scripts.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/sbin/ext/run-init-scripts.sh 755 0 0
+file /sbin/ext/su-helper.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/sbin/ext/su-helper.sh 755 0 0
+file /sbin/ext/thunderbolt.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/sbin/ext/thunderbolt.sh 755 0 0
+file /sbin/ext/tweaks.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/sbin/ext/tweaks.sh 755 0 0
 dir /sys 755 0 0
 dir /mnt 755 0 0
 dir /mnt/.lfs 755 0 0
-file /stage1/boot.cpio /home/gustavo/initramfs/ramdisk.cpio 644 0 0
-file /stage1/recovery.cpio /home/gustavo/initramfs/ramdisk-recovery.cpio 644 0 0
+file /stage1/boot.cpio /home/gustavo/kernel/usr/ramdisk.cpio 644 0 0
+file /stage1/recovery.cpio /home/gustavo/kernel/usr/ramdisk-recovery.cpio 644 0 0

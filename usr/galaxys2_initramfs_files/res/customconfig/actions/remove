@@ -1,0 +1,8 @@
+#!/system/bin/sh
+
+su
+chown root.shell /data/bkp.profile
+chmod 0664 /data/bkp.profile
+rm /data/bkp.profile
+
+echo "Removed"

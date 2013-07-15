@@ -1,0 +1,34 @@
+#!/system/bin/sh
+
+if [ "$2" ]; then
+    scrollcache=$2
+    ON_SCROLLCACHE="persist.sys.scrollingcache=0"
+    OFF_SCROLLCACHE="persist.sys.scrollingcache=3"
+
+    PROP_SCROLLINGCACHE=$(grep -e '^persist.sys.scrollingcache' /data/local.prop)
+    case "${scrollcache}" in
+	default)
+	    [ -f /data/config.txt ] && sed -i -e "s/^SCROLL_CACHE=.*/SCROLL_CACHE=0/g" /data/config.txt
+	    ;;
+	on)
+	    [ -f /data/config.txt ] && sed -i -e "s/^SCROLL_CACHE=.*/SCROLL_CACHE=1/g" /data/config.txt
+	    if [ "$PROP_SCROLLINGCACHE" ]; then
+		sed -i -e '/^persist.sys.scrollingcache.*/d' /data/local.prop
+		REBOOT_SYSTEM=1
+	    fi
+	    ;;
+	off)
+	    [ -f /data/config.txt ] && sed -i -e "s/^SCROLL_CACHE=.*/SCROLL_CACHE=2/g" /data/config.txt
+	    if [ ! "$PROP_SCROLLINGCACHE" ]; then
+		echo $OFF_SCROLLCACHE >> /data/local.prop
+		REBOOT_SYSTEM=1
+	    elif [ "$PROP_SCROLLINGCACHE" != "$OFF_SCROLLCACHE" ]; then
+		sed -i -e "s/^persist.sys.scrollingcache.*/${OFF_SCROLLCACHE}/g" /data/local.prop
+		REBOOT_SYSTEM=1
+	    fi
+	    ;;
+    esac
+
+fi
+
+echo ${scrollcache}

@@ -1,0 +1,33 @@
+#!/system/bin/sh
+
+if [ "$2" ]; then
+    vmtweaks=$2
+
+    case "${vmtweaks}" in
+	disable)
+	    [ -f /data/config.txt ] && sed -i -e "s/^VM_TWEAKS=.*/VM_TWEAKS=0/g" /data/config.txt
+	    ;;
+	nunogil)
+	    [ -f /data/config.txt ] && sed -i -e "s/^VM_TWEAKS=.*/VM_TWEAKS=1/g" /data/config.txt
+	    sysctl -w vm.swappiness=0
+	    sysctl -w vm.vfs_cache_pressure=10
+	    sysctl -w vm.dirty_background_ratio=80
+	    sysctl -w vm.dirty_ratio=90
+	    sysctl -w vm.dirty_writeback_centisecs=2000
+	    sysctl -w vm.dirty_expire_centisecs=1000
+	    sysctl -w vm.min_free_kbytes=4096
+	    ;;
+	default)
+	    [ -f /data/config.txt ] && sed -i -e "s/^VM_TWEAKS=.*/VM_TWEAKS=2/g" /data/config.txt
+	    sysctl -w vm.swappiness=60
+	    sysctl -w vm.vfs_cache_pressure=100
+	    sysctl -w vm.dirty_background_ratio=5
+	    sysctl -w vm.dirty_ratio=20
+	    sysctl -w vm.dirty_writeback_centisecs=500
+	    sysctl -w vm.dirty_expire_centisecs=200
+	    sysctl -w vm.min_free_kbytes=3606
+	    ;;
+    esac
+fi
+
+echo ${vmtweaks}
