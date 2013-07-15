@@ -1,0 +1,9 @@
+#!/system/bin/sh
+
+#restore saved profile
+if [ -f /data/bkp.profile ]; then
+cp /data/bkp.profile /data/.siyah/default.profile
+echo "Restore completed"
+else
+echo "No backup to be restored!!!"
+fi

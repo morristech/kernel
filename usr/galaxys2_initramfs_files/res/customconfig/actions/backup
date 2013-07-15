@@ -1,0 +1,5 @@
+#!/system/bin/sh
+
+#copy current profile to a safe location
+cp /data/.siyah/default.profile /data/bkp.profile
+echo "Backup completed"

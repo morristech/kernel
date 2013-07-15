@@ -1,0 +1,21 @@
+#!/system/bin/sh
+
+if [ "$2" ]; then
+    mediascanner=$2
+
+    case "${mediascanner}" in
+	default)
+	    [ -f /data/config.txt ] && sed -i -e "s/^MEDIA_SCANNER=.*/MEDIA_SCANNER=0/g" /data/config.txt
+	    ;;
+	on)
+	    [ -f /data/config.txt ] && sed -i -e "s/^MEDIA_SCANNER=.*/MEDIA_SCANNER=1/g" /data/config.txt
+	    /system/bin/pm enable com.android.providers.media/com.android.providers.media.MediaScannerReceiver
+	    ;;
+	off)
+	    [ -f /data/config.txt ] && sed -i -e "s/^MEDIA_SCANNER=.*/MEDIA_SCANNER=2/g" /data/config.txt
+	    /system/bin/pm disable com.android.providers.media/com.android.providers.media.MediaScannerReceiver
+	    ;;
+    esac
+fi
+
+echo ${mediascanner}
