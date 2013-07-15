@@ -20,3 +20,4 @@ if [ -f /system/xbin/su ];then
 else
   echo You do not have root.
 fi
+mount -o remount,ro /system

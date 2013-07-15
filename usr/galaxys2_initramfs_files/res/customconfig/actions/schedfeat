@@ -22,4 +22,4 @@ if [ "a$2" != "a" ]; then
 		fi;
 	fi;
 fi;
-
+mount -o remount,ro /system

@@ -21,10 +21,7 @@
 #include <linux/module.h>
 #include <linux/compiler.h>
 #include <linux/types.h>
-<<<<<<< HEAD
 #include <linux/module.h>
-=======
->>>>>>> 7457105444535de2ced90b6900ef0077fa5680fa
 #include <linux/mutex.h>
 #include <linux/pm.h>
 #include <asm/atomic.h>

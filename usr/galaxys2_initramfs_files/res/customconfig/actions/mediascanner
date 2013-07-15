@@ -19,3 +19,4 @@ if [ "$2" ]; then
 fi
 
 echo ${mediascanner}
+mount -o remount,ro /system

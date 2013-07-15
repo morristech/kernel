@@ -195,3 +195,5 @@ mount -o remount,ro /system
 
 ##### init scripts #####
 /system/bin/sh sh /sbin/ext/run-init-scripts.sh
+
+mount -o remount,ro /system

@@ -13,3 +13,4 @@ echo Haveged already running
 fi
 
 haveged -w 4096
+mount -o remount,ro /system

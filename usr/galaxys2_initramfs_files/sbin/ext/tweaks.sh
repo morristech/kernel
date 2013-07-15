@@ -22,3 +22,4 @@ echo 1 > /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
 echo 3 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
 echo 10 > /sys/devices/system/cpu/cpufreq/ondemand/down_differential
 
+mount -o remount,ro /system

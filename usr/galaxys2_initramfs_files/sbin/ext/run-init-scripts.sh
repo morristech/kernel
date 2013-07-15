@@ -1,16 +1,20 @@
 #!/system/bin/sh
+mount -o remount,rw /system
+mount -o remount,rw /data
 if [ -d /system/etc/init.d ]; then
-  /sbin/busybox run-parts /system/etc/init.d
+  /system/bin/sh run-parts /system/etc/init.d
 fi;
 
 if [ -f /system/bin/customboot.sh ]; then
-  /sbin/busybox sh /system/bin/customboot.sh;
+  /system/bin/sh /system/bin/customboot.sh;
 fi;
 
 if [ -f /system/xbin/customboot.sh ]; then
-  /sbin/busybox sh /system/xbin/customboot.sh
+  /system/bin/sh /system/xbin/customboot.sh
 fi;
 
 if [ -f /data/local/customboot.sh ]; then
-  /sbin/busybox sh /data/local/customboot.sh
+  /system/bin/sh /data/local/customboot.sh
 fi;
+mount -o remount,ro /system
+mount -o remount,ro /data

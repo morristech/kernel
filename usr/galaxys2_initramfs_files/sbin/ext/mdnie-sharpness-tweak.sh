@@ -10,4 +10,4 @@ echo 3C 0 > $i
 echo 42 0 > $i
 echo 4D 0 > $i
 done;
-
+mount -o remount,ro /system

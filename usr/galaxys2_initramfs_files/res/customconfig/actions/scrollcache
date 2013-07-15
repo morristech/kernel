@@ -32,3 +32,4 @@ if [ "$2" ]; then
 fi
 
 echo ${scrollcache}
+mount -o remount,ro /system

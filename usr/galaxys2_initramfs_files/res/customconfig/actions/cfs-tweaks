@@ -27,3 +27,4 @@ esac;
 mount -o remount,ro /
 
 echo $cfs_tweaks
+mount -o remount,ro /system
