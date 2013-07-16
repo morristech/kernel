@@ -23,4 +23,3 @@ if [ "a$2" != "a" ];then
 fi
 
 echo ${bln_effect}
-mount -o remount,ro /system

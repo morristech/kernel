@@ -3,4 +3,3 @@
 #copy current profile to a safe location
 cp /data/.siyah/default.profile /data/bkp.profile
 echo "Backup completed"
-mount -o remount,ro /system

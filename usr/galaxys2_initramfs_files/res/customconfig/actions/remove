@@ -6,4 +6,4 @@ chmod 0664 /data/bkp.profile
 rm /data/bkp.profile
 
 echo "Removed"
-mount -o remount,ro /system
+

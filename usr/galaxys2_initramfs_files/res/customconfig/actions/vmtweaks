@@ -31,4 +31,4 @@ if [ "$2" ]; then
 fi
 
 echo ${vmtweaks}
-mount -o remount,ro /system
+

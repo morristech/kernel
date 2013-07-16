@@ -24,4 +24,4 @@ if [ "a$2" != "a" ]; then
 fi;
 
 echo "${usb_mode}";
-mount -o remount,ro /system
+

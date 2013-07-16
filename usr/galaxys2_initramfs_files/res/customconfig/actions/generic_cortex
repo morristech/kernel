@@ -17,4 +17,4 @@ if [ "a$2" != "a" ]; then
 		eval $evalcmd;
 	fi;
 fi;
-mount -o remount,ro /system
+

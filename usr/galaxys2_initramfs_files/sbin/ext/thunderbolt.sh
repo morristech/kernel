@@ -153,4 +153,4 @@ do
 busybox mount -o remount,noatime $k;
 done;
 
-mount -o remount,ro /system
+

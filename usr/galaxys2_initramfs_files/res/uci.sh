@@ -42,4 +42,3 @@ esac;
 
 # write back the config to the active profile
 write_config
-mount -o remount,ro /system

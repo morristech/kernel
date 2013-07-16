@@ -12,4 +12,4 @@ then
     /sbin/busybox cp /data/.siyah/efs* /sdcard
   ) &
 fi
-mount -o remount,ro /system
+

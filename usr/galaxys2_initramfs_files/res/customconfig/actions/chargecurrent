@@ -23,4 +23,3 @@ case "${chargecurrent}" in
     ;;
 esac;
 fi
-mount -o remount,ro /system

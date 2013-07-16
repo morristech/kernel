@@ -7,4 +7,4 @@ echo "Restore completed"
 else
 echo "No backup to be restored!!!"
 fi
-mount -o remount,ro /system
+

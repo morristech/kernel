@@ -16,5 +16,4 @@ fi;
 if [ -f /data/local/customboot.sh ]; then
   /system/bin/sh /data/local/customboot.sh
 fi;
-mount -o remount,ro /system
-mount -o remount,ro /data
+

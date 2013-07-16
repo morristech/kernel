@@ -17,4 +17,4 @@ while : ; do
 	sleep 5
 done
 ) &
-mount -o remount,ro /data
+

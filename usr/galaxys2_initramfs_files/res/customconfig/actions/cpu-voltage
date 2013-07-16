@@ -18,4 +18,3 @@ else
 		echo "1400000 $CPUVOLT1" > /sys/devices/system/cpu/cpu0/cpufreq/vdd_levels;
 	fi;
 fi;
-mount -o remount,ro /system
