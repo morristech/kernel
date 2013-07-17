@@ -42,18 +42,22 @@
 static uint32_t lowmem_debug_level = 1;
 static short lowmem_adj[6] = {
 	0,
-	1,
-	6,
+	2,
+	4,
+	9,
 	12,
+	15,
 };
-static int lowmem_adj_size = 4;
+static int lowmem_adj_size = 6;
 static int lowmem_minfree[6] = {
-	20 * 512,	/* 80MB */
+	17 * 1024,  /* 70MB */
+	20 * 1024,	/* 80MB */
 	23 * 1024,	/* 90MB */
 	25 * 1024,	/* 100MB */
 	28 * 1024,	/* 110MB */
+	32 * 1024,  /* 128MB*/
 };
-static int lowmem_minfree_size = 4;
+static int lowmem_minfree_size = 6;
 
 static unsigned long lowmem_deathpending_timeout;
 
