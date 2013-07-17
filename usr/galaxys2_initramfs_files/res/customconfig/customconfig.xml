@@ -23,7 +23,9 @@ the boostpulse interface will increase the cpu's frequency to 800mhz for 500ms w
              <spinnerItem name="ondemand" value="ondemand"/> 
              <spinnerItem name="conservative" value="conservative"/> 
        </spinner>
-       <seekBar description="Scaling maximum frequency (Samsung default: 1200000)"
+       <seekBar description="CPU sampling rate for ondemand. Lower values gives better governor responsiveness to cpu load, but costs battery. CM default is 100k."
+			name="Sampling Rate (ondemand only)" action="generic /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate" unit="μS" min="10000" reversed="false" step="10000" max="100000"/>
+			<seekBar description="Scaling maximum frequency (Samsung default: 1200000)"
                 name="scaling_max_freq" action="generic /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq" unit=" kHz" min="800000" reversed="false" step="200000" max="1400000"/>
        <seekBar description="Scaling minimum frequency (Samsung default: 200000)"
                 name="scaling_min_freq" action="generic /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq" unit=" kHz" min="200000" reversed="false" step="300000" max="500000"/>
@@ -68,7 +70,7 @@ the boostpulse interface will increase the cpu's frequency to 800mhz for 500ms w
 <checkbox description="Enable or Disable wifi power module. On = performance (faster downloads with screen off) Off = battery (default), needs restart." name="wifi_pm" action="generic /tmp/wifi_pm" label="wifi_pm"/>
 </settingsPane>
 <settingsPane description="These settings control battery tweaks." name="Battery Tweaks">
-<checkbox description="Enable or Disable battery tweaks (thanks @infected_)." name="Battery tweaks" action="generic /tmp/battery" label="battery"/>
+<checkbox description="Enable or Disable battery tweaks. Don't use this if you have swap enabled." name="Battery tweaks" action="generic /tmp/battery" label="battery"/>
 </settingsPane>
 <settingsPane description="These settings control CFS (Complete Fair Scheduler) Task Scheduler Settings" name="CFS Settings">
       <checkbox description="Disabling GENTLE_FAIR_SLEEPERS may give you better UI responsiveness." name="GENTLE_FAIR_SLEEPERS" action="schedfeat GENTLE_FAIR_SLEEPERS" label="GENTLE_FAIR_SLEEPERS"/>
@@ -191,11 +193,11 @@ the boostpulse interface will increase the cpu's frequency to 800mhz for 500ms w
     </settingsPane>
     <settingsPane description="Microphone Amplification Settings" name="Microphone Amplification">
       <seekBar description="Microphone Amplifier Level (Used to increase or decrease volume during calls)" 
-		name="Microphone Amplifier" action="sound_volume 2" unit="" min="-20" reversed="false" step="2" max="20"/>
+		name="Microphone Amplifier" action="sound_volume 2" unit="DB" min="-20" reversed="false" step="2" max="20"/>
     </settingsPane>
     <settingsPane description="Speaker Amplification Settings" name="Speaker Amplification">
       <seekBar description="Speaker Amplifier Level (Used in playing videos, calls with speakerphone, and so on)" 
-		name="Speaker Amplifier" action="sound_volume 3" unit="" min="-20" reversed="false" step="1" max="20"/>
+		name="Speaker Amplifier" action="sound_volume 3" unit="DB" min="-20" reversed="false" step="1" max="20"/>
     </settingsPane>
   </settingsTab>
   <settingsTab name="BLN">

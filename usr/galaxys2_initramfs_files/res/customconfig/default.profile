@@ -1,6 +1,7 @@
 Boostpulse=off
 enable_mask=3
 scaling_governor=ondemand
+sampling_rate=50000
 scaling_max_freq=1200000
 scaling_min_freq=200000
 scaling_max_suspend_freq=1200000

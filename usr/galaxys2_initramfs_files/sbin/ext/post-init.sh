@@ -128,13 +128,12 @@ fi
 # Enables JIT compiler for packet filters (needs kernel support)
 echo "1" > /proc/sys/net/core/bpf_jit_enable
 
-# 50k sampling rate for ondemand (default is 100k)
-echo "50000" > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
+echo "1" > /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
 
-# battery tweaks (thanks @infected_)
+# battery tweaks
 if [ "$battery" == "on" ];then
-echo "500" > /proc/sys/vm/dirty_expire_centisecs
-echo "1000" > /proc/sys/vm/dirty_writeback_centisecs
+echo "0" > /proc/sys/vm/dirty_expire_centisecs
+echo "0" > /proc/sys/vm/dirty_writeback_centisecs
 fi
 
 ### Disables Built In Error Reporting
